@@ -20,3 +20,14 @@ input[type="text"] {
 input {
   border-radius: 5px;
 }
+
+.setting {
+  position: relative;
+  display: inline;
+  float: right;
+}
+
+#title {
+  font-size: x-large;
+  color: blue;
+}

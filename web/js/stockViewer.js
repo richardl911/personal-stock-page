@@ -4,6 +4,11 @@ const urlBase = 'https://www.quandl.com/api/v3/datasets/WIKI/'
 
 document.addEventListener('DOMContentLoaded', function() {
   createFormListeners();
+
+  $('#save').on('click', () => {
+    saveSettings();
+  });
+
 });
 
 function createFormListeners() {
@@ -50,4 +55,16 @@ function getURLKey() {
 
 function joinParameters() {
 
+}
+
+let content = 'hello word';
+function saveSettings() {
+  let blob = new Blob([content], {type: 'text/plain'});
+  let anchor = document.createElement('a');
+  let fileName = $('input[name="fileName"]').val();
+
+  anchor.download = (fileName || 'stockSettings') + '.json';
+  anchor.href = (window.webkitURL || window.URL).createObjectURL(blob);
+  anchor.dataset.downloadurl = ['text/plain', anchor.download, anchor.href].join(':');
+  anchor.click();
 }

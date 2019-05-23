@@ -12,7 +12,17 @@
   <script src="js/vue-2.5.13.js"></script>
 </head>
 <body>
+  <div>
+    <span id="title"> Personal Stock Charts with News Tag! </span>
+<!--
+    <input id="load" type="file" class="setting" value="Load Settings" style="margin-right:15px"></input>
+-->
+    <span>
+      <input id="save" type="button" class="setting" value="Save Settings">
+      <input type="text" name="fileName" placeholder="File Name" style="float:right"></input>
+    </span>
 
+  </div>
   <form id="apiKeyForm">
     <label> Quandl API Key : </label>
     <input type="text" name="apiKey" placeholder="api key"> </input>
