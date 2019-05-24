@@ -17,6 +17,13 @@ function createFormListeners() {
 //    apiKey = $('#apiKeyForm > input[name="apiKey"]').val();
     checkValidKey();
   });
+
+  $('#createGraph').on('submit', () => {
+    event.preventDefault();
+
+
+  });
+
 }
 
 
