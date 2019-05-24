@@ -13,25 +13,28 @@
 </head>
 <body>
   <div>
-    <span id="title"> Personal Stock Charts with News Tag! </span>
-<!--
-    <input id="load" type="file" class="setting" value="Load Settings" style="margin-right:15px"></input>
--->
-    <span>
-      <input id="save" type="button" class="setting" value="Save Settings">
-      <input type="text" name="fileName" placeholder="File Name" style="float:right"></input>
+    <span id="title" style="display:inline-block"> Personal Stock Charts with News Tag! </span>
+
+    <span style="display:inline-block;float:right">
+      <div style="float:right">
+        <input type="text" name="fileName" placeholder="File Name"></input>
+        <input id="save" type="button" value="Save Settings">
+      </div>
+      <div>
+        <input id="load" type="file" value="Load Settings" style="margin-right:15px;disply:inline"></input>
+        <input type="button" value="Load Settings" style="display:inline;vertical-align:middle"></input>
+      </div>
     </span>
 
   </div>
 
-  <hr style="margin:10px 0px">
+  <hr style="margin:15px 0px">
 
   <form id="apiKeyForm">
     <label> Quandl API Key : </label>
     <input type="text" name="apiKey" placeholder="api key"> </input>
     <input type="submit" value="update"> </input>
   </form>
-
 
 </body>
 </html>
