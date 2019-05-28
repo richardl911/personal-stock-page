@@ -32,6 +32,15 @@ chart.prototype.createGraph = function() {
     this.hide();
   });
 
+  this.chartWindow.on('resizestop', function(event, ui) {
+    console.log('resizing');
+
+    let rect = $(ui.element)[0].getBoundingClientRect();
+    let localChart = $(ui.element).children('#chart')[0];
+
+    Plotly.relayout(localChart, {width : rect.width, height : rect.height - 20});
+  });
+
   this.data = [{
     x : [1, 2, 3, 4, 5],
     y : [1, 2, 4, 8, 16],
@@ -62,6 +71,7 @@ chart.prototype.setDefaultSettings = function() {
 
   this.config = {
     displayModeBar : false,
+    responsive: true,
   };
 }
 
