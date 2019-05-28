@@ -2,9 +2,9 @@ let chartMap = {
   map : {},
   add : function(symbol) {
     this.notInMap(symbol)
-      .then((symbol) => { this.existInDatabase(symbol) })
-      .then((symbol) => { this.createChart(symbol)})
-      .catch((error) => { console.log(error); });
+      .then((symbol) => { return this.existInDatabase(symbol) })
+      .then((symbol) => { return this.createChart(symbol) })
+      .catch((error) => { console.log('wht'); console.log(error); });
 
   },
   notInMap : function(symbol) {

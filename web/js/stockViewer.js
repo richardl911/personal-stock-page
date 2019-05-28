@@ -1,7 +1,6 @@
 let apiKey = config.apiKey || '';
 const urlBase = 'https://www.quandl.com/api/v3/datasets/WIKI/'
 
-
 document.addEventListener('DOMContentLoaded', function() {
   createFormListeners();
 
@@ -21,7 +20,8 @@ function createFormListeners() {
   $('#createGraph').on('submit', () => {
     event.preventDefault();
 
-
+    let stockSymbol = $('#stockSymbol').val() || 'FB';
+    chartMap.add(stockSymbol);
   });
 
 }

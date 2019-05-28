@@ -27,3 +27,13 @@ input {
   font-size: x-large;
   color: blue;
 }
+
+.close {
+  float: right;
+  padding: 0px 10px;
+}
+
+.close:hover {
+  cursor: pointer;
+  border 2px solid white;
+}
