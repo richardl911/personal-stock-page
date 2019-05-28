@@ -16,7 +16,7 @@ let chartMap = {
       });
   },
   existInDatabase : function(symbol) {
-    let url = `https://www.quandl.com/api/v3/datasets/WIKI/${symbol}`;
+    let url = `https://api.iextrading.com/1.0/stock/${symbol}/chart/1d`;
     return new Promise((resolve, reject) => {
         let xhr = new XMLHttpRequest();
         
