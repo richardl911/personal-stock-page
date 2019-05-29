@@ -69,7 +69,6 @@ let chartMap = {
   },
   createChart : function(symbol, dataset) {
     dataset = iexDatasetFilter(dataset);
-//console.log(dataset);
     this.map[symbol] = new chart(symbol, dataset.x, dataset.y);
   },
 }

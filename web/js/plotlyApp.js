@@ -10,6 +10,8 @@ function chart(name, x, y) {
   this.pushDataToSet(x, y);
   this.setDefaultSettings();
   this.createGraph();
+
+  self = this;
 }
 
 chart.prototype.createGraph = function() {
@@ -33,6 +35,7 @@ chart.prototype.createGraph = function() {
     this.hide();
   });
 
+  // Resizing plotly handler
   this.chartWindow.on('resizestop', function(event, ui) {
     console.log('resizing');
 
@@ -41,13 +44,12 @@ chart.prototype.createGraph = function() {
 
     Plotly.relayout(localChart, {width : rect.width, height : rect.height - 20});
   });
-/*
-  this.data.push({
-    x : [1, 2, 3, 4, 5],
-    y : [1, 2, 4, 8, 16],
-    type : 'scatter',
+
+  this.chartWindow.on('click', () => {
+    $('#newsTag > div').text(`Add news to ${self.name} graph`);
   });
-*/
+
+
   Plotly.newPlot(this.chartEl, this.data, this.layout, this.config);
 }
 
@@ -55,7 +57,8 @@ chart.prototype.pushDataToSet = function(x, y) {
   let data = {
     x : x,
     y : y,
-    mode : 'scatter'
+    mode : 'scatter',
+    hoverinfo : 'none',
   }
   this.data.push(data);
 }
@@ -63,7 +66,7 @@ chart.prototype.pushDataToSet = function(x, y) {
 
 chart.prototype.setDefaultSettings = function() {
   this.layout = {
-    title : 'Some stock here',
+    title : `${this.name} Stock`,
     xaxis : {
       title : 'Date',
       fixedrange : true,
@@ -85,11 +88,6 @@ chart.prototype.setDefaultSettings = function() {
     responsive: true,
   };
 }
-
-chart.prototype.updateData = function() {
-
-}
-
 
 chart.prototype.hide = function() {
   this.chartWindow.css({'display' : 'none'});
