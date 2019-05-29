@@ -10,8 +10,6 @@ function chart(name, x, y) {
   this.pushDataToSet(x, y);
   this.setDefaultSettings();
   this.createGraph();
-
-  self = this;
 }
 
 chart.prototype.createGraph = function() {
@@ -29,7 +27,7 @@ chart.prototype.createGraph = function() {
     '); 
   this.chartEl = $(this.chartWindow).children('#chart')[0];
 
-  this.chartWindow.appendTo('body').draggable().resizable();
+  this.chartWindow.appendTo('body').draggable({stack : '*'}).resizable();
 
   this.chartWindow.find('.close').on('click', () => {
     this.hide();
@@ -46,7 +44,8 @@ chart.prototype.createGraph = function() {
   });
 
   this.chartWindow.on('click', () => {
-    $('#newsTag > div').text(`Add news to ${self.name} graph`);
+    $('#newsTag > div').text(`Add news to ${this.name} graph`);
+    $('#newsTag > [type="submit"]').val(`Add News to ${this.name}`);
   });
 
 

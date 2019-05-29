@@ -14,10 +14,14 @@ function createFormListeners() {
   $('#createGraph').on('submit', () => {
     event.preventDefault();
 
-    let stockSymbol = $('[name="stockSymbol"]').val() || 'FB';
+    let stockSymbol = $('[name="stockSymbol"]').val();
     chartMap.add(stockSymbol.toLowerCase());
   });
 
+  // test bench
+  $('[name="stockSymbol"]').val('fb');
+  $('#createGraph [type="submit"]').click();      //fixme - used for debugging
+  $('[name="stockSymbol"]').val('aapl');
   $('#createGraph [type="submit"]').click();      //fixme - used for debugging
 }
 
