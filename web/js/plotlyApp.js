@@ -1,3 +1,5 @@
+let selectedChart = null;
+
 function chart(name, x, y) {
   this.name = name;
   this.chartWindow = null;          // jQuery object
@@ -46,6 +48,7 @@ chart.prototype.createGraph = function() {
   this.chartWindow.on('click', () => {
     $('#newsTag > div').text(`Add news to ${this.name} graph`);
     $('#newsTag > [type="submit"]').val(`Add News to ${this.name}`);
+    selectedChart = this;
   });
 
 
@@ -92,3 +95,6 @@ chart.prototype.hide = function() {
   this.chartWindow.css({'display' : 'none'});
 }
 
+function getSelectedChart() {
+  return selectedChart;
+}

@@ -1,6 +1,3 @@
-let apiKey = config.apiKey || '';
-const urlBase = 'https://www.quandl.com/api/v3/datasets/WIKI/'
-
 document.addEventListener('DOMContentLoaded', function() {
   createFormListeners();
 
@@ -8,6 +5,13 @@ document.addEventListener('DOMContentLoaded', function() {
     saveSettings();
   });
 
+  $('#newsTag').on('submit', () => {
+    event.preventDefault();
+
+    let chart = getSelectedChart();
+console.log(chart.name);
+
+  });
 });
 
 function createFormListeners() {
