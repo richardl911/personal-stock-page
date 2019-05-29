@@ -3,8 +3,9 @@ let chartMap = {
   add : function(symbol) {
     this.notInMap(symbol)
       .then((symbol) => { return this.existInDatabase(symbol) })
-      .then((symbol) => { return this.createChart(symbol) })
-      .catch((error) => { console.log('wht'); console.log(error); });
+      .then((symbol) => { return this.getDataset(symbol) })
+      .then((obj) => { return this.createChart(obj.symbol, obj.dataset) })
+      .catch((error) => { console.log(error); });
 
   },
   notInMap : function(symbol) {
@@ -36,12 +37,53 @@ let chartMap = {
         throw(error);
       }); 
   },
-  createChart : function(symbol) {
-    this.map[symbol] = new chart(symbol);
-  },
   getDataset : function(symbol) {
+    let url = `https://api.iextrading.com/1.0/stock/${symbol}/chart/5y`;
 
+    return new Promise((resolve, reject) => {
+      let xhr = new XMLHttpRequest();
 
+      xhr.onload = function() {
+        if(this.status != 200) {
+          reject(`Error ${this.status} : ${this.statusText}`);
+        } else {
+          try {
+            let dataset = JSON.parse(this.response);
+            resolve({symbol : symbol, dataset : dataset});
+          } catch {
+            reject('Invalid response structure');
+          }
+        }
+      }
+
+      xhr.error = function() {
+        reject('Error with xhr');
+      }
+
+      xhr.open('GET', url);
+      xhr.send();
+
+    }).catch((error) => {
+      throw(error);
+    });
+  },
+  createChart : function(symbol, dataset) {
+    dataset = iexDatasetFilter(dataset);
+//console.log(dataset);
+    this.map[symbol] = new chart(symbol, dataset.x, dataset.y);
+  },
+}
+
+function iexDatasetFilter(dataset) {
+  let plotlySet = {
+    x : [],
+    y : [],
   }
 
+  for(let data of dataset) {
+    plotlySet.x.push(data.date);
+    plotlySet.y.push(data.close);
+  }
+  return plotlySet;
 }
+

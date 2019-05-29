@@ -1,4 +1,4 @@
-function chart(name) {
+function chart(name, x, y) {
   this.name = name;
   this.chartWindow = null;          // jQuery object
   this.chartEl = null;              // HTML object
@@ -7,6 +7,7 @@ function chart(name) {
   this.layout = {};
   this.config = {};
 
+  this.pushDataToSet(x, y);
   this.setDefaultSettings();
   this.createGraph();
 }
@@ -40,15 +41,25 @@ chart.prototype.createGraph = function() {
 
     Plotly.relayout(localChart, {width : rect.width, height : rect.height - 20});
   });
-
-  this.data = [{
+/*
+  this.data.push({
     x : [1, 2, 3, 4, 5],
     y : [1, 2, 4, 8, 16],
     type : 'scatter',
-  }];
-
-  Plotly.newPlot(this.chartEl, null, this.layout, this.config);
+  });
+*/
+  Plotly.newPlot(this.chartEl, this.data, this.layout, this.config);
 }
+
+chart.prototype.pushDataToSet = function(x, y) {
+  let data = {
+    x : x,
+    y : y,
+    mode : 'scatter'
+  }
+  this.data.push(data);
+}
+
 
 chart.prototype.setDefaultSettings = function() {
   this.layout = {
@@ -76,8 +87,6 @@ chart.prototype.setDefaultSettings = function() {
 }
 
 chart.prototype.updateData = function() {
-  Plotly(this.chartEl, this.data)
-
 
 }
 
