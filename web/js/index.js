@@ -8,9 +8,19 @@ document.addEventListener('DOMContentLoaded', function() {
   $('#newsTag').on('submit', () => {
     event.preventDefault();
 
-    let chart = getSelectedChart();
-console.log(chart.name);
+    let date = $('#date').val();
+    if(invalidDate(date)) {
+      alert('Error : Invalid date. Must be in YYYY-MM-DD format');
+      return;
+    }
 
+    let tag = $('#tag').val();
+    let summary = $('#summary').text();
+    let website = $('#website').val();
+
+    let chart = getSelectedChart();
+
+    chart.addAnnotation(date, tag, summary, website);
   });
 });
 
@@ -25,6 +35,16 @@ function createFormListeners() {
   // test bench
   $('[name="stockSymbol"]').val('fb');
   $('#createGraph [type="submit"]').click();      //fixme - used for debugging
+
+  $('#date').val('2015-10-09');
+  $('#short').val('test');
+  $('#summary').text('some kind of long long summary here');
+  $('#website').val('www.google.com');
+  setTimeout( () => {
+    $('.chartWindow').first().click()
+  }, 5000);
+
+
 //  $('[name="stockSymbol"]').val('aapl');
 //  $('#createGraph [type="submit"]').click();      //fixme - used for debugging
 }
@@ -39,4 +59,12 @@ function saveSettings() {
   anchor.href = (window.webkitURL || window.URL).createObjectURL(blob);
   anchor.dataset.downloadurl = ['text/plain', anchor.download, anchor.href].join(':');
   anchor.click();
+}
+
+function invalidDate(date) {
+  if(date.split('-').length != 3) return false;
+
+  let [year, month, day] = date.split('-');
+
+  if(isNaN(year) || isNaN(month) || isNaN(day)) return false;
 }

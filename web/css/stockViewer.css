@@ -19,6 +19,7 @@
   border-radius: 5px;
 }
 
+textarea,
 input[type="text"] {
   color : blue;
   padding-left: 5px;

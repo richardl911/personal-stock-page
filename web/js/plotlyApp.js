@@ -6,10 +6,14 @@ function chart(name, x, y) {
   this.chartWindow = null;          // jQuery object
   this.chartEl = null;              // HTML object
 
+  this.annotatedHash = {};
   this.annotation = [];
   this.data = [];
   this.layout = {};
   this.config = {};
+
+  this.minY = 0;
+  this.maxY = 0;
 
   this.pushDataToSet(x, y);
   this.setDefaultSettings();
@@ -62,6 +66,9 @@ chart.prototype.createGraph = function() {
 }
 
 chart.prototype.pushDataToSet = function(x, y) {
+  this.minY = Math.min(...y);
+  this.maxY = Math.max(...y);
+
   let data = {
     x : x,
     y : y,
@@ -73,6 +80,9 @@ chart.prototype.pushDataToSet = function(x, y) {
 
 
 chart.prototype.setDefaultSettings = function() {
+  let testDate = "2016-05-04";
+  this.annotation.push(createAnnotatedElement(testDate, this.getYFromX(testDate)));
+
   this.layout = {
     title : `${this.name} Stock`,
     xaxis : {
@@ -88,7 +98,8 @@ chart.prototype.setDefaultSettings = function() {
       r : 40,
       t : 40,
       b : 60,
-    } 
+    },
+    annotations : this.annotation,
   };
 
   this.config = {
@@ -101,6 +112,39 @@ chart.prototype.hide = function() {
   this.chartWindow.css({'display' : 'none'});
 }
 
+chart.prototype.addAnnotation = function(date, tag, summary, website) {
+  this.annotatedHash[date] = [tag, summary, website];
+
+  this.annotation.push(createAnnotatedElement(date, this.getYFromX(date)));
+
+  Plotly.relayout(this.chartEl, this.layout);
+}
+
+chart.prototype.getYFromX = function(date) {
+  let indexOfX = this.data[0].x.indexOf(date);
+
+  if(indexOfX == -1) return this.min;     //fixme - need to handle weekend and holidays correctly
+
+  return this.data[0].y[indexOfX];
+}
+
 function getSelectedChart() {
   return selectedChart;
 }
+
+function createAnnotatedElement(x, y) {
+  return {
+    x : x,
+    y : y,
+    xref : 'x',
+    yref : 'y',
+    text : 'Annotation Text',
+    showarrow : true,
+    arrowhead : 7,
+    ax : 0,
+    ay : -40,
+  }
+}
+
+
+
