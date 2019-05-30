@@ -115,7 +115,7 @@ chart.prototype.hide = function() {
 chart.prototype.addAnnotation = function(date, tag, summary, website) {
   this.annotatedHash[date] = [tag, summary, website];
 
-  this.annotation.push(createAnnotatedElement(date, this.getYFromX(date)));
+  this.annotation.push(createAnnotatedElement(date, this.getYFromX(date)));   //fixme - how to handle double tags
 
   Plotly.relayout(this.chartEl, this.layout);
 }
@@ -123,9 +123,28 @@ chart.prototype.addAnnotation = function(date, tag, summary, website) {
 chart.prototype.getYFromX = function(date) {
   let indexOfX = this.data[0].x.indexOf(date);
 
-  if(indexOfX == -1) return this.min;     //fixme - need to handle weekend and holidays correctly
+  if(indexOfX == -1) return this.getClosetYFromX(date);     //fixme - need to handle weekend and holidays correctly
 
   return this.data[0].y[indexOfX];
+}
+
+chart.prototype.getClosetYFromX = function(date) {
+  let [year, month, day] = date.split('-');
+  let ref = new Date(year, month, day);
+
+  let smallestDelta = +Infinity;
+  let deltaIndex = 0;
+
+  for(let index in this.data[0].x) {
+    [year, month, day] = this.data[0].x[index].split('-');
+    let curr = new Date(year, month, day);
+    if(smallestDelta > Math.abs(curr-ref)) {
+      deltaIndex = index;
+      smallestDelta = Math.abs(curr-ref);
+    }
+  }
+
+  return this.data[0].y[deltaIndex];
 }
 
 function getSelectedChart() {
