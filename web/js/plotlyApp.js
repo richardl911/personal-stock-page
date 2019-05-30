@@ -1,10 +1,12 @@
 let selectedChart = null;
+let mainColor = '#4B77FE'
 
 function chart(name, x, y) {
   this.name = name;
   this.chartWindow = null;          // jQuery object
   this.chartEl = null;              // HTML object
 
+  this.annotation = [];
   this.data = [];
   this.layout = {};
   this.config = {};
@@ -20,11 +22,15 @@ chart.prototype.createGraph = function() {
 
   this.chartWindow =
     $('\
-      <div class="chartWindow" style="width:750px;height:500px;padding:10px,10px;border:0px solid black">\
-        <div style="background-color:blue;height:20px">\
+      <div class="chartWindow" style="width:750px">\
+        <div style="background-color:#4B77BE;height:20px">\
           <span class="close" style="color:white">&times</span>\
         </div>\
-        <div id="chart" style="width:100%;height:calc(100% - 20px)"></div>\
+        <div id="chart"></div>\
+        <button class="collapsible">News Contents</button>\
+        <div class="newsBar">\
+          <div> Date : YYYY/MM/DD </div>\
+        </div>\
       </div>\
     '); 
   this.chartEl = $(this.chartWindow).children('#chart')[0];
@@ -37,20 +43,20 @@ chart.prototype.createGraph = function() {
 
   // Resizing plotly handler
   this.chartWindow.on('resizestop', function(event, ui) {
-    console.log('resizing');
-
     let rect = $(ui.element)[0].getBoundingClientRect();
     let localChart = $(ui.element).children('#chart')[0];
 
-    Plotly.relayout(localChart, {width : rect.width, height : rect.height - 20});
+    Plotly.relayout(localChart, {width : rect.width, height : rect.height-20});
   });
 
+  // Get form access when chart is clicked
   this.chartWindow.on('click', () => {
     $('#newsTag > div').text(`Add news to ${this.name} graph`);
     $('#newsTag > [type="submit"]').val(`Add News to ${this.name}`);
     selectedChart = this;
   });
 
+  
 
   Plotly.newPlot(this.chartEl, this.data, this.layout, this.config);
 }
@@ -78,10 +84,10 @@ chart.prototype.setDefaultSettings = function() {
       fixedrange : true,
     },
     margin : {
-      l : 40,
+      l : 50,
       r : 40,
-      t : 60,
-      b : 40,
+      t : 40,
+      b : 60,
     } 
   };
 

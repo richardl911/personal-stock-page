@@ -1,3 +1,8 @@
+:root {
+  --main-color : #4B77BE;
+  --main-bg-color : #4B77BE;
+}
+
 * {
   font-size: 12px;
   font-family: Consolas;
@@ -26,7 +31,7 @@ input {
 
 #title {
   font-size: x-large;
-  color: blue;
+  color: var(--main-color);
 }
 
 .close {
@@ -37,4 +42,31 @@ input {
 .close:hover {
   cursor: pointer;
   border 2px solid white;
+}
+
+.chartWindow {
+  outline : 2px solid black;
+}
+
+.collapsible {
+  background-color : var(--main-color);
+  color : white;
+  cursor : pointer;
+  width : 100%;
+  text-align : left;
+  border : none;
+  outline : 2px solid black;
+}
+
+.collapsible:after {
+  content : '\02795';
+  color : white;
+  float : right;
+  margin-right : 10px;
+}
+
+.newsBar {
+  width: 100%;
+  outline : 2px solid black;
+  outline-top : none;
 }

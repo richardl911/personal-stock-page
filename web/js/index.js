@@ -25,8 +25,8 @@ function createFormListeners() {
   // test bench
   $('[name="stockSymbol"]').val('fb');
   $('#createGraph [type="submit"]').click();      //fixme - used for debugging
-  $('[name="stockSymbol"]').val('aapl');
-  $('#createGraph [type="submit"]').click();      //fixme - used for debugging
+//  $('[name="stockSymbol"]').val('aapl');
+//  $('#createGraph [type="submit"]').click();      //fixme - used for debugging
 }
 
 let content = 'hello word';
