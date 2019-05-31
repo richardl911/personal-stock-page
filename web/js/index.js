@@ -10,7 +10,7 @@ document.addEventListener('DOMContentLoaded', function() {
     saveSettings();
   });
 
-  $('#newsTag').on('submit', () => {
+  $('#addNews').on('submit', () => {
     event.preventDefault();
 
     let date = $('#date').val();
@@ -50,8 +50,15 @@ function createFormListeners() {
 
     // Display subMenu
     let index = $(event.target).parent().index();
-    $('#subMenu > li').css('display', 'none');
+    $('#subMenu > li, #blackOut').css('display', 'none');
     $(`#subMenu > li:nth-child(${index+2})`).css('display', 'block');
+
+    // Black out subMenu if no chart is selected
+    if(index == 1 && getSelectedChart() == null) {       // fixme
+      let rect = $('#addNews')[0].getBoundingClientRect();
+      $('#blackOut').css({height : rect.height, display : 'block'});
+    }
+
 
   });
 

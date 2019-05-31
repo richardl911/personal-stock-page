@@ -22,7 +22,7 @@
 
 textarea,
 input[type="text"] {
-  color : blue;
+  color : var(--main-color);
   padding-left: 5px;
   border: 1px solid black;
 }
@@ -148,6 +148,15 @@ ul {
   display : none;
 }
 
-#subMenu .close:hover {
+.close:hover {
   transform : scale(3);
+}
+
+#blackOut {
+  position : absolute;
+  width : 90%;
+  text-align : center;
+  background-color: #333;
+  opacity : 0.9;
+  vertical-align : middle;
 }

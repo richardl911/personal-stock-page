@@ -55,8 +55,9 @@ chart.prototype.createGraph = function() {
 
   // Get form access when chart is clicked
   this.chartWindow.on('click', () => {
-    $('#newsTag > div').text(`Add news to ${this.name} graph`);
-    $('#newsTag > [type="submit"]').val(`Add News to ${this.name}`);
+    $('#blackOut').css('display', 'none');
+    $('#addNews > p').text(`${this.name.toUpperCase()} News`);
+    $('#addNews [type="submit"]').val(`Add News to ${this.name.toUpperCase()}`);
     selectedChart = this;
   });
 
@@ -81,7 +82,7 @@ chart.prototype.pushDataToSet = function(x, y) {
 
 chart.prototype.setDefaultSettings = function() {
   let testDate = "2016-05-04";
-  this.annotation.push(createAnnotatedElement(testDate, this.getYFromX(testDate)));
+  this.annotation.push(createAnnotatedElement(testDate, this.getYFromX(testDate), 'Test1'));
 
   this.layout = {
     title : `${this.name} Stock`,
@@ -119,8 +120,8 @@ chart.prototype.show = function() {
 
 chart.prototype.addAnnotation = function(date, tag, summary, website) {
   this.annotatedHash[date] = [tag, summary, website];
-
-  this.annotation.push(createAnnotatedElement(date, this.getYFromX(date)));   //fixme - how to handle double tags
+  tag = tag == '' ? 'no tag' : tag;
+  this.annotation.push(createAnnotatedElement(date, this.getYFromX(date), tag));   //fixme - how to handle double tags
 
   Plotly.relayout(this.chartEl, this.layout);
 }
@@ -156,13 +157,13 @@ function getSelectedChart() {
   return selectedChart;
 }
 
-function createAnnotatedElement(x, y) {
+function createAnnotatedElement(x, y, shortTag) {
   return {
     x : x,
     y : y,
     xref : 'x',
     yref : 'y',
-    text : 'Annotation Text',
+    text : shortTag,
     showarrow : true,
     arrowhead : 7,
     ax : 0,
