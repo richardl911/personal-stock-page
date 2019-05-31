@@ -10,8 +10,12 @@ let chartMap = {
   },
   notInMap : function(symbol) {
     return new Promise((resolve, reject) => {
-        if(this.map[symbol] !== undefined) reject();
-        else resolve(symbol);
+        if(this.map[symbol] !== undefined) {
+          this.map[symbol].show();
+          reject();
+        } else {
+          resolve(symbol);
+        }
       }).catch(() => {
         throw(`Error : There is already a chart with ${symbol}`);
       });

@@ -109,8 +109,13 @@ chart.prototype.setDefaultSettings = function() {
 }
 
 chart.prototype.hide = function() {
-  this.chartWindow.css({'display' : 'none'});
+  this.chartWindow.css('display', 'none');
 }
+
+chart.prototype.show = function() {
+  this.chartWindow.css('display', 'block');
+}
+
 
 chart.prototype.addAnnotation = function(date, tag, summary, website) {
   this.annotatedHash[date] = [tag, summary, website];
