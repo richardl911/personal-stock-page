@@ -38,10 +38,14 @@ function createFormListeners() {
   });
 
 
-  // Highlights clicked menu
+  // Highlights clicked menu and display subMenu
   $('#menu li .menuItem').on('click', () => {
     $('#menu .menuItem').css('background-color', uiColor.grey);
     $(event.target).css('background-color', uiColor.blue);
+
+    let index = $(event.target).parent().index();
+    $('#subMenu > li').css('display', 'none');
+    $(`#subMenu > li:nth-child(${index+1})`).css('display', 'block');
   });
 
 
