@@ -20,7 +20,6 @@
 <body>
   <div>
     <span id="title" style="display:inline-block"> Personal Stock Charts with News Tag! </span>
-
     <span style="display:inline-block;float:right">
       <div style="float:right">
         <input type="text" name="fileName" placeholder="File Name"></input>
@@ -31,17 +30,32 @@
         <input type="button" value="Load Settings" style="display:inline;vertical-align:middle"></input>
       </div>
     </span>
-
   </div>
 
   <hr style="margin:15px 0px">
+
+  <ul id="menu">
+    <li><div id="create" class="menuItem">Create Stock Chart</div></li>
+    <li><div id="news" class="menuItem">Add News To Chart</div></li>
+    <li style="float:right"><div id="help" class="menuItem">Help</div></li>
+  </ul>
+
+
+  <ul id="subMenu">
+    <li>
+      <form>
+        <label> Stock Symbol : </label>
+        <input type="text"></input>
+        <input type="button" value="Create Chart" style="float:right;margin:auto"></input>
+      </form>
+    </li>
+    <li>
+      <form>
+     
+      </form>
+    </li>
+  </ul>
 <!--
-  <form id="apiKeyForm">
-    <label> Quandl API Key : </label>
-    <input type="text" name="apiKey" placeholder="api key"> </input>
-    <input type="submit" value="update"> </input>
-  </form>
--->
   <form id="createGraph">
     <label> Stock Symbol : </label>
     <input type="text" name="stockSymbol" placeholder="Enter stock symbol"></input>
@@ -56,6 +70,6 @@
     Reference Website : <input type="text" id="website" placeholder="website"></input> <br>
     <input type="submit" value="Add News to Graph"></input>
   </form>
-
+-->
 </body>
 </html>

@@ -1,3 +1,8 @@
+let uiColor = {
+  blue : '#4B77BE',
+  grey : '#333',
+}
+
 document.addEventListener('DOMContentLoaded', function() {
   createFormListeners();
 
@@ -31,6 +36,15 @@ function createFormListeners() {
     let stockSymbol = $('[name="stockSymbol"]').val();
     chartMap.add(stockSymbol.toLowerCase());
   });
+
+
+  // Highlights clicked menu
+  $('#menu li .menuItem').on('click', () => {
+    $('#menu .menuItem').css('background-color', uiColor.grey);
+    $(event.target).css('background-color', uiColor.blue);
+  });
+
+
 
   // test bench
   $('[name="stockSymbol"]').val('fb');
