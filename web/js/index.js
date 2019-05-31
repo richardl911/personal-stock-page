@@ -30,7 +30,7 @@ document.addEventListener('DOMContentLoaded', function() {
 });
 
 function createFormListeners() {
-  $('#createGraph').on('submit', () => {
+  $('#addGraph').on('submit', () => {
     event.preventDefault();
 
     let stockSymbol = $('[name="stockSymbol"]').val();
@@ -59,7 +59,7 @@ function createFormListeners() {
   $('#subMenu .close').on('click', () => {
       $('#subMenu > *').css('display', 'none');
   })
-
+return;
   // test bench
   $('[name="stockSymbol"]').val('fb');
   $('#createGraph [type="submit"]').click();      //fixme - used for debugging
