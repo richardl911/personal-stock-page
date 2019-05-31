@@ -40,15 +40,25 @@ function createFormListeners() {
 
   // Highlights clicked menu and display subMenu
   $('#menu li .menuItem').on('click', () => {
+    // Make all item similar color
     $('#menu .menuItem').css('background-color', uiColor.grey);
+    // Color clicked item
     $(event.target).css('background-color', uiColor.blue);
 
+    // Display closing icon
+    $('#subMenu div').css('display', 'block');
+
+    // Display subMenu
     let index = $(event.target).parent().index();
     $('#subMenu > li').css('display', 'none');
-    $(`#subMenu > li:nth-child(${index+1})`).css('display', 'block');
+    $(`#subMenu > li:nth-child(${index+2})`).css('display', 'block');
+
   });
 
-
+  // Close subMenu
+  $('#subMenu .close').on('click', () => {
+      $('#subMenu > *').css('display', 'none');
+  })
 
   // test bench
   $('[name="stockSymbol"]').val('fb');

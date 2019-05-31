@@ -122,14 +122,20 @@ ul {
 
 #subMenu label {
   color : white;
-  width : 200px;
+  width : 30%;
   display : inline-block;
+}
+
+#subMenu label:after {
+  content : ':';
+  float : right;
 }
 
 #addNews textarea,
 #addNews input[type="text"] {
-  width: 300px;
+  width: 65%;
   vertical-align : top;
+  padding : 0px 5px;
 }
 
 #addNews > div {
@@ -138,6 +144,10 @@ ul {
   margin : 5px;
 }
 
-#subMenu > li {
+#subMenu > * {
   display : none;
+}
+
+#subMenu .close:hover {
+  transform : scale(3);
 }
