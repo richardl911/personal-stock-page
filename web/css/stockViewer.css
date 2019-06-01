@@ -30,6 +30,12 @@ input {
   border-radius: 5px;
 }
 
+input[type="button"]:hover,
+input[type="submit"]:hover {
+  cursor : pointer;
+}
+
+
 #title {
   font-size: x-large;
   color: var(--main-color);
@@ -86,7 +92,7 @@ ul {
 }
 
 #menu li:last-child {
-  border-right: none;
+//  border-right: none;
 }
 
 #menu li div {
@@ -169,3 +175,15 @@ ul {
   border-radius : 0px;
   padding : 10px 10px;
 }
+
+.newsButtons {
+  padding-bottom : 5px;
+  border-bottom : none;
+}
+
+.newsButtons input {
+  padding : 0px 15px;
+  margin : 0px 5px;
+}
+
+

@@ -36,25 +36,29 @@ chart.prototype.createGraph = function() {
         </div>\
         <div id="chart"></div>\
         <div class="collapsible" style="font-size:12px:height:12px">News Contents <span style="float:right;margin-right:10px;color:white">+</span></div>\
-        <div class="newsBar" style="display:none;text-align:center">\
+        <div class="newsBar" style="text-align:center">\
           <div><label>Chart Description</label><input name="tag" type="text" disabled></input></div>\
           <div><label>Date</label><input name="date" type="text" disabled></input></div>\
           <div><label>Summary</label><textarea name="summary" rows="3" style="resize:none" disabled></textarea></div>\
           <div><label>Reference Website</label><input name="website" type="text" disabled></input></div>\
+          <div class="newsButtons">\
+            <input name="delete" type="button" value="Delete"></input>\
+            <input name="edit" type="button" value="Edit"></input>\
+            <input name="update" type="button" value="Update"></input>\
+          </div>\
         </div>\
       </div>\
     '); 
   this.chartWindow.appendTo('body').draggable({stack : '*'}).resizable();
 
-  this.chartEl = $(this.chartWindow).children('#chart')[0];
-  this.newsBar = this.chartWindow.find('.newsBar');
-  this.newsBarSign = this.chartWindow.find('.collapsible span');
-
+  //  Used for closing out entire window
   this.chartWindow.find('.close').on('click', () => {
     this.hide();
   });
 
-  // Handler for more indepth news contents
+  // Handler for hiding/showing more indepth news contents
+  this.newsBar = this.chartWindow.find('.newsBar');
+  this.newsBarSign = this.chartWindow.find('.collapsible span');
   this.chartWindow.find('.collapsible').on('click', () => {
     let display = this.newsBar.css('display');
     if(display == 'none') {
@@ -66,6 +70,13 @@ chart.prototype.createGraph = function() {
     }
   });
 
+  // Handler for news buttons
+  this.newsButtons = this.chartWindow.find('.newsButtons input[type="button"]');
+  this.newsButtons.on('click', (event) => {
+console.log($(event.target).attr('name'));
+  });
+
+
   // Resizing plotly handler
   this.chartWindow.on('resizestop', function(event, ui) {
     let rect = $(ui.element)[0].getBoundingClientRect();
@@ -75,7 +86,7 @@ chart.prototype.createGraph = function() {
                                                                                       // 20 for top bar; 10+12 for news menu (12 font [5+5] padding)
   });
 
-  // Get form access when chart is clicked
+  // Get news form access when chart is clicked
   this.chartWindow.on('click', () => {
     $('#blackOut').css('display', 'none');
     $('#addNews > p').text(`${this.name.toUpperCase()} News`);
@@ -83,11 +94,14 @@ chart.prototype.createGraph = function() {
     selectedChart = this;
   });
 
+  // Handler to change full annotation menu to current annotation
   this.chartWindow.on('plotly_clickannotation', (event, ui) => {
     let fullAnnot = this.annotatedHash[ui.annotation.x];
     this.displayFullAnnotation(fullAnnot);
   });
 
+  // Create chart
+  this.chartEl = $(this.chartWindow).children('#chart')[0];
   Plotly.newPlot(this.chartEl, this.data, this.layout, this.config);
 }
 
