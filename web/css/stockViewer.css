@@ -91,10 +91,6 @@ ul {
   border-right:1px solid #bbb;
 }
 
-#menu li:last-child {
-//  border-right: none;
-}
-
 #menu li div {
   display: block;
   color: white;
