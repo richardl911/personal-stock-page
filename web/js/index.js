@@ -19,13 +19,20 @@ document.addEventListener('DOMContentLoaded', function() {
       return;
     }
 
+    // Grab data
     let tag = $('#tag').val();
     let summary = $('#summary').text();
     let website = $('#website').val();
 
+    // Add annotation
     let chart = getSelectedChart();
-
     chart.addAnnotation(date, tag, summary, website);
+
+    // Clear form
+    $('#date').val('');
+    $('#tag').val('');
+    $('#summary').text('');
+    $('#website').val('');
   });
 });
 
@@ -72,9 +79,19 @@ function createFormListeners() {
   });
 
   // test bench
-  $('#menu create').click();
+  $('#menu').click();
   $('#addGraph [name="stockSymbol"]').val('amzn');
   $('#addGraph [type="submit"]').submit();
+
+  setTimeout( () => {
+    $('#chart').click();
+
+    $('#date').val('2015-12-04');
+    $('#tag').val('Test 2');
+    $('#summary').text('something really really really long here');
+    $('#website').val('www.google.com');
+    $('#addNews [type="submit"]').click();
+  }, 2000);
 }
 
 let content = 'hello word';

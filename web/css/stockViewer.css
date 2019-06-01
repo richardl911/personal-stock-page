@@ -137,6 +137,7 @@ ul {
   width: 65%;
   vertical-align : top;
   padding : 0px 5px;
+  border-radius : 5px;
 }
 
 #addNews > div {

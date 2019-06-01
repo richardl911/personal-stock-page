@@ -18,6 +18,10 @@ function chart(name, x, y) {
   this.pushDataToSet(x, y);
   this.setDefaultSettings();
   this.createGraph();
+
+  // Testbench
+  let testDate = "2016-05-21"
+  this.addAnnotation(testDate, 'Test 1', 'Test 1 : Really lonnnggg sumarrryyy', 'www.amazon.com');
 }
 
 chart.prototype.createGraph = function() {
@@ -33,8 +37,8 @@ chart.prototype.createGraph = function() {
         <div id="chart"></div>\
         <div class="collapsible" style="font-size:12px:height:12px">News Contents <span style="float:right;margin-right:10px;color:white">+</span></div>\
         <div class="newsBar" style="display:none;text-align:center">\
-          <div><label>Date</label><input name="date" type="text" value="testDate" disabled></input></div>\
-          <div><label>Chart Description</label><input name="tag" type="text" value="test2" disabled></input></div>\
+          <div><label>Chart Description</label><input name="tag" type="text" disabled></input></div>\
+          <div><label>Date</label><input name="date" type="text" disabled></input></div>\
           <div><label>Summary</label><textarea name="summary" rows="3" style="resize:none" disabled></textarea></div>\
           <div><label>Reference Website</label><input name="website" type="text" disabled></input></div>\
         </div>\
@@ -79,7 +83,10 @@ chart.prototype.createGraph = function() {
     selectedChart = this;
   });
 
-  
+  this.chartWindow.on('plotly_clickannotation', (event, ui) => {
+    let fullAnnot = this.annotatedHash[ui.annotation.x];
+    this.displayFullAnnotation(fullAnnot);
+  });
 
   Plotly.newPlot(this.chartEl, this.data, this.layout, this.config);
 }
@@ -97,11 +104,7 @@ chart.prototype.pushDataToSet = function(x, y) {
   this.data.push(data);
 }
 
-
 chart.prototype.setDefaultSettings = function() {
-  let testDate = "2016-05-04";
-  this.annotation.push(createAnnotatedElement(testDate, this.getYFromX(testDate), 'Test1'));
-
   this.layout = {
     title : `${this.name} Stock`,
     xaxis : {
@@ -135,13 +138,20 @@ chart.prototype.show = function() {
   this.chartWindow.css('display', 'block');
 }
 
-
 chart.prototype.addAnnotation = function(date, tag, summary, website) {
-  this.annotatedHash[date] = [tag, summary, website];
+  this.annotatedHash[date] = [date, tag, summary, website];
   tag = tag == '' ? 'no tag' : tag;
   this.annotation.push(createAnnotatedElement(date, this.getYFromX(date), tag));   //fixme - how to handle double tags
 
   Plotly.relayout(this.chartEl, this.layout);
+}
+
+chart.prototype.displayFullAnnotation = function (annotation) {
+  let [date, tag, summary, website] = annotation;
+  this.newsBar.find('[name="date"]').val(date);
+  this.newsBar.find('[name="tag"]').val(tag);
+  this.newsBar.find('textarea').text(summary);
+  this.newsBar.find('[name="website"]').val(website);
 }
 
 chart.prototype.getYFromX = function(date) {
@@ -186,6 +196,7 @@ function createAnnotatedElement(x, y, shortTag) {
     arrowhead : 7,
     ax : 0,
     ay : -40,
+    captureevents : true,
   }
 }
 
