@@ -66,22 +66,11 @@ function createFormListeners() {
   $('#subMenu .close').on('click', () => {
       $('#subMenu > *').css('display', 'none');
   })
-return;
+
   // test bench
-  $('[name="stockSymbol"]').val('fb');
-  $('#createGraph [type="submit"]').click();      //fixme - used for debugging
-
-  $('#date').val('2015-10-09');
-  $('#short').val('test');
-  $('#summary').text('some kind of long long summary here');
-  $('#website').val('www.google.com');
-  setTimeout( () => {
-    $('.chartWindow').first().click()
-  }, 5000);
-
-
-//  $('[name="stockSymbol"]').val('aapl');
-//  $('#createGraph [type="submit"]').click();      //fixme - used for debugging
+  $('#menu create').click();
+  $('#addGraph [name="stockSymbol"]').val('amzn');
+  $('#addGraph [type="submit"]').submit();
 }
 
 let content = 'hello word';

@@ -113,7 +113,7 @@ ul {
 }
 
 #subMenu form {
-  width : 20%;
+  width : fit-content;
   margin : auto;
   border : 2px solid var(--main-color);
   border-radius : 5px;
