@@ -54,23 +54,20 @@ input {
   background-color : var(--main-color);
   color : white;
   cursor : pointer;
-  width : 100%;
-  text-align : left;
-  border : none;
-  outline : 2px solid black;
+  padding : 5px 10px;
 }
 
-.collapsible:after {
-  content : '\02795';
-  color : white;
-  float : right;
-  margin-right : 10px;
+.collapsible span:hover {
+  transform : scale(3);
+}
+
+.collapsible:hover:after {
+  transform : scale(3);
 }
 
 .newsBar {
   width: 100%;
   outline : 2px solid black;
-  outline-top : none;
 }
 
 
@@ -120,17 +117,22 @@ ul {
   padding : 5px 15px;
 }
 
+.newsBar label,
 #subMenu label {
-  color : white;
   width : 30%;
   display : inline-block;
+  text-align : left;
 }
 
+.newsBar label:after,
 #subMenu label:after {
   content : ':';
   float : right;
+  padding : 0px 5px;
 }
 
+.newsBar textarea,
+.newsBar input[type="text"],
 #addNews textarea,
 #addNews input[type="text"] {
   width: 65%;
@@ -159,4 +161,10 @@ ul {
   background-color: #333;
   opacity : 0.9;
   vertical-align : middle;
+}
+
+.newsBar > div {
+  border-bottom : 2px solid var(--main-color);
+  border-radius : 0px;
+  padding : 10px 10px;
 }

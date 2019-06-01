@@ -73,7 +73,7 @@ let chartMap = {
   },
   createChart : function(symbol, dataset) {
     dataset = iexDatasetFilter(dataset);
-    this.map[symbol] = new chart(symbol, dataset.x, dataset.y);
+    this.map[symbol] = new chart(symbol.toUpperCase(), dataset.x, dataset.y);
   },
 }
 

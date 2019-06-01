@@ -31,18 +31,35 @@ chart.prototype.createGraph = function() {
           <span class="close" style="color:white">&times</span>\
         </div>\
         <div id="chart"></div>\
-        <button class="collapsible">News Contents</button>\
-        <div class="newsBar">\
-          <div> Date : YYYY/MM/DD </div>\
+        <div class="collapsible" style="font-size:12px">News Contents <span style="float:right;margin-right:10px;color:white">+</span></div>\
+        <div class="newsBar" style="display:none;text-align:center">\
+          <div><label>Date</label><input name="date" type="text" value="testDate" disabled></input></div>\
+          <div><label>Chart Description</label><input name="tag" type="text" value="test2" disabled></input></div>\
+          <div><label>Summary</label><textarea name="summary" rows="3" style="resize:none" disabled></textarea></div>\
+          <div><label>Reference Website</label><input name="website" type="text" disabled></input></div>\
         </div>\
       </div>\
     '); 
-  this.chartEl = $(this.chartWindow).children('#chart')[0];
-
   this.chartWindow.appendTo('body').draggable({stack : '*'}).resizable();
+
+  this.chartEl = $(this.chartWindow).children('#chart')[0];
+  this.newsBar = this.chartWindow.find('.newsBar');
+  this.newsBarSign = this.chartWindow.find('.collapsible span');
 
   this.chartWindow.find('.close').on('click', () => {
     this.hide();
+  });
+
+  // Handler for more indepth news contents
+  this.chartWindow.find('.collapsible').on('click', () => {
+    let display = this.newsBar.css('display');
+    if(display == 'none') {
+      this.newsBar.css('display', 'block');
+      this.newsBarSign.text('-');
+    } else {
+      this.newsBar.css('display', 'none');
+      this.newsBarSign.text('+');
+    }
   });
 
   // Resizing plotly handler
