@@ -7,7 +7,8 @@ function chart(name, x, y) {
   this.chartEl = null;              // HTML object
 
   this.annotatedHash = {};
-  this.annotation = [];
+  this.selectedHashKey = null;
+
   this.data = [];
   this.layout = {};
   this.config = {};
@@ -36,7 +37,7 @@ chart.prototype.createGraph = function() {
         </div>\
         <div id="chart"></div>\
         <div class="collapsible" style="font-size:12px:height:12px">News Contents <span style="float:right;margin-right:10px;color:white">+</span></div>\
-        <div class="newsBar" style="text-align:center">\
+        <div class="newsBar" style="display:none;text-align:center">\
           <div><label>Chart Description</label><input name="tag" type="text" disabled></input></div>\
           <div><label>Date</label><input name="date" type="text" disabled></input></div>\
           <div><label>Summary</label><textarea name="summary" rows="3" style="resize:none" disabled></textarea></div>\
@@ -73,7 +74,22 @@ chart.prototype.createGraph = function() {
   // Handler for news buttons
   this.newsButtons = this.chartWindow.find('.newsButtons input[type="button"]');
   this.newsButtons.on('click', (event) => {
-console.log($(event.target).attr('name'));
+    if(this.selectedHashKey == null) return;
+
+    let buttonName = $(event.target).attr('name');
+    switch(buttonName) {
+      case 'delete' :
+        this.deleteAnnotation();
+        break;
+      case 'edit' :
+        this.enableEdit(true);
+        break;
+      case 'update' :
+        this.updateAnnotation();
+        break;
+      default :
+        console.log(`Error : invalid button ${buttonName} (${event.target})`);
+    }
   });
 
 
@@ -96,8 +112,10 @@ console.log($(event.target).attr('name'));
 
   // Handler to change full annotation menu to current annotation
   this.chartWindow.on('plotly_clickannotation', (event, ui) => {
-    let fullAnnot = this.annotatedHash[ui.annotation.x];
-    this.displayFullAnnotation(fullAnnot);
+    let annotation = this.annotatedHash[ui.annotation.x];
+    this.selectedHashKey = annotation[0];
+    this.enableEdit(false);
+    this.displayFullAnnotation(annotation);
   });
 
   // Create chart
@@ -135,7 +153,7 @@ chart.prototype.setDefaultSettings = function() {
       t : 40,
       b : 60,
     },
-    annotations : this.annotation,
+    annotations : this.getPlotlyAnnotations(),
   };
 
   this.config = {
@@ -153,15 +171,60 @@ chart.prototype.show = function() {
 }
 
 chart.prototype.addAnnotation = function(date, tag, summary, website) {
+  if(date == null) return;
   this.annotatedHash[date] = [date, tag, summary, website];
-  tag = tag == '' ? 'no tag' : tag;
-  this.annotation.push(createAnnotatedElement(date, this.getYFromX(date), tag));   //fixme - how to handle double tags
+  this.updateAnnotatedPrint();
+}
 
+chart.prototype.deleteAnnotation = function() {
+  if(this.annotatedHash[this.selectedHashKey] === undefined) return;
+  delete this.annotatedHash[this.selectedHashKey];
+  this.updateAnnotatedPrint();
+  this.displayFullAnnotation();
+  this.selectedHashKey = null;
+}
+
+chart.prototype.enableEdit = function(state) {
+  if(state) {
+    this.newsBar.find(':disabled').attr('disabled', false);
+    this.newsBar.find('input[name="date"]').attr('disabled', true);
+  } else {
+    this.newsBar.find(':enabled:not([type="button"])').attr('disabled', true);
+  }
+}
+
+chart.prototype.updateAnnotation = function() {
+  let tag = this.newsBar.find('[name="tag"]').val();
+  let summary = this.newsBar.find('textarea').text();
+  let website = this.newsBar.find('[name="webiste"]').val();
+  this.addAnnotation(this.selectedHashKey, tag, summary, website);
+  this.enableEdit(false);
+}
+
+chart.prototype.getPlotlyAnnotations = function() {
+  let annotations = [];
+
+  for(let key in this.annotatedHash) {
+    let [date, tag, summary, website] = this.annotatedHash[key];
+    tag = (tag == '' ? 'no tag' : tag);
+    annotations.push(createAnnotatedElement(date, this.getYFromX(date), tag));
+  }
+
+  return annotations;
+}
+
+chart.prototype.updateAnnotatedPrint = function() {
+  this.layout.annotations = this.getPlotlyAnnotations();
   Plotly.relayout(this.chartEl, this.layout);
 }
 
+
 chart.prototype.displayFullAnnotation = function (annotation) {
-  let [date, tag, summary, website] = annotation;
+  let [date, tag, summary, website] = [null, null, null, null];
+
+  if(annotation)
+    [date, tag, summary, website] = annotation;
+
   this.newsBar.find('[name="date"]').val(date);
   this.newsBar.find('[name="tag"]').val(tag);
   this.newsBar.find('textarea').text(summary);
