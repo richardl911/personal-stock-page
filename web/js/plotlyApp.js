@@ -31,7 +31,7 @@ chart.prototype.createGraph = function() {
           <span class="close" style="color:white">&times</span>\
         </div>\
         <div id="chart"></div>\
-        <div class="collapsible" style="font-size:12px">News Contents <span style="float:right;margin-right:10px;color:white">+</span></div>\
+        <div class="collapsible" style="font-size:12px:height:12px">News Contents <span style="float:right;margin-right:10px;color:white">+</span></div>\
         <div class="newsBar" style="display:none;text-align:center">\
           <div><label>Date</label><input name="date" type="text" value="testDate" disabled></input></div>\
           <div><label>Chart Description</label><input name="tag" type="text" value="test2" disabled></input></div>\
@@ -67,7 +67,8 @@ chart.prototype.createGraph = function() {
     let rect = $(ui.element)[0].getBoundingClientRect();
     let localChart = $(ui.element).children('#chart')[0];
 
-    Plotly.relayout(localChart, {width : rect.width, height : rect.height-20});
+    Plotly.relayout(localChart, {width : rect.width, height : rect.height-20-22});    // fixme - need a better method of doing this
+                                                                                      // 20 for top bar; 10+12 for news menu (12 font [5+5] padding)
   });
 
   // Get form access when chart is clicked
