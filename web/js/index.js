@@ -64,8 +64,12 @@ function createFormListeners() {
 
   // Close subMenu
   $('#subMenu .close').on('click', () => {
-      $('#subMenu > *').css('display', 'none');
-  })
+    // Close subMenu
+    $('#subMenu > *').css('display', 'none');
+
+    // Update main menu to default color
+    $('#menu .menuItem').css('background-color', uiColor.grey);
+  });
 
   // test bench
   $('#menu create').click();
