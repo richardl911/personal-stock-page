@@ -2,7 +2,7 @@
 Let's build a customizable stock webpage!  Attach your own news to whatever stock you like!
 
 <p align="center">
-  <img src="./images/highlight.png" style="border:2px solid black">
+  <img src="./images/highlight.png" alt="https://raw.githubusercontent.com/richardl911/personal-stock-page/master/images/highlight.PNG" style="border:2px solid black">
 </p>
 
 ## Motivation
@@ -31,7 +31,7 @@ Hopefully, it is self-explanatory, but if not, here is a quick run through of th
 ### Main menu
 As of now, there are only two functional submenus.  The next two coming up will be saving/loading.
 <p align="center">
-  <img src="./images/menu.png" style="border:2px solid black">
+  <img src="./images/menu.png" alt="https://raw.githubusercontent.com/richardl911/personal-stock-page/master/images/menu.PNG" style="border:2px solid black">
 <p>
 
 ### Submenus
@@ -41,7 +41,7 @@ The two functionality submenu as of now are the following :
 - Used to find stock data by using [iextrading](https://iextrading.com) API
 - FYI : If chart does not show, scroll down the page, the chart should be there.
 <p align="center">
-  <img src="./images/createChart.png" style="border:2px solid black">
+  <img src="./images/createChart.png" alt="https://raw.githubusercontent.com/richardl911/personal-stock-page/master/images/createChart.PNG" style="border:2px solid black">
 </p>
 
 #### Add News To Chart
@@ -56,7 +56,7 @@ The two functionality submenu as of now are the following :
 - Draggable
 - See more indepth detail of the annotation by clicking on the annotation
 <p align="center">
-  <img src="./images/chart.png" style="border:2px solid black">
+  <img src="./images/chart.png" alt="https://raw.githubusercontent.com/richardl911/personal-stock-page/master/images/chart.PNG" style="border:2px solid black">
 </p>
 
 ## Future Updates
