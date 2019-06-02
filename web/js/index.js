@@ -65,8 +65,6 @@ function createFormListeners() {
       let rect = $('#addNews')[0].getBoundingClientRect();
       $('#blackOut').css({height : rect.height, display : 'block'});
     }
-
-
   });
 
   // Close subMenu
@@ -77,7 +75,7 @@ function createFormListeners() {
     // Update main menu to default color
     $('#menu .menuItem').css('background-color', uiColor.grey);
   });
-
+return;
   // test bench
   $('#menu').click();
   $('#addGraph [name="stockSymbol"]').val('amzn');

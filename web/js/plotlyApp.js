@@ -19,7 +19,7 @@ function chart(name, x, y) {
   this.pushDataToSet(x, y);
   this.setDefaultSettings();
   this.createGraph();
-
+return;
   // Testbench
   let testDate = "2016-05-21"
   this.addAnnotation(testDate, 'Test 1', 'Test 1 : Really lonnnggg sumarrryyy', 'www.amazon.com');
