@@ -45,7 +45,7 @@ The two functionality submenu as of now are the following :
 ## Chart's Ability
 - Resizable
 - Draggable
-- See more indepth detail of the annotation by clicking on the annotation
+- See more indepth detail of the annotation, click on the desired annotation and then the '+' on the left of "News Contents" for the summary and reference site
 ![alt text](https://raw.githubusercontent.com/richardl911/personal-stock-page/master/images/chart.PNG)
 
 ## Future Updates
