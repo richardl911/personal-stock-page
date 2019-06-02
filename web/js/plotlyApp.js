@@ -195,7 +195,7 @@ chart.prototype.enableEdit = function(state) {
 
 chart.prototype.updateAnnotation = function() {
   let tag = this.newsBar.find('[name="tag"]').val();
-  let summary = this.newsBar.find('textarea').text();
+  let summary = this.newsBar.find('textarea').val();
   let website = this.newsBar.find('[name="webiste"]').val();
   this.addAnnotation(this.selectedHashKey, tag, summary, website);
   this.enableEdit(false);
@@ -227,7 +227,7 @@ chart.prototype.displayFullAnnotation = function (annotation) {
 
   this.newsBar.find('[name="date"]').val(date);
   this.newsBar.find('[name="tag"]').val(tag);
-  this.newsBar.find('textarea').text(summary);
+  this.newsBar.find('textarea').val(summary);
   this.newsBar.find('[name="website"]').val(website);
 }
 

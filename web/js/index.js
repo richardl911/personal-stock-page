@@ -21,7 +21,7 @@ document.addEventListener('DOMContentLoaded', function() {
 
     // Grab data
     let tag = $('#tag').val();
-    let summary = $('#summary').text();
+    let summary = $('#summary').val();
     let website = $('#website').val();
 
     // Add annotation
@@ -31,7 +31,7 @@ document.addEventListener('DOMContentLoaded', function() {
     // Clear form
     $('#date').val('');
     $('#tag').val('');
-    $('#summary').text('');
+    $('#summary').val('');
     $('#website').val('');
   });
 });
