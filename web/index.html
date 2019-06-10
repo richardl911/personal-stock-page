@@ -39,9 +39,9 @@
   <ul id="menu">
     <li><div id="create" class="menuItem">Create Stock Chart</div></li>
     <li><div id="news" class="menuItem">Add News To Chart</div></li>
-    <li style="float:right"><div id="help" class="menuItem">Help</div></li>
-    <li style="float:right"><div id="load" class="menuItem">Load</div></li>
-    <li style="float:right;border-left:1px solid #bbb"><div id="save" class="menuItem">Save</div></li>
+    <li style="float:right"><div class="help menuItem">Help</div></li>
+    <li style="float:right"><div class="load menuItem">Load</div></li>
+    <li style="float:right;border-left:1px solid #bbb"><div class="save menuItem">Save</div></li>
   </ul>
 
 
@@ -67,11 +67,17 @@
     <li>
       <p>In development</p>
     </li>
-    <li>
-      <p>In development</p>
+    <li class="load">
+      <form>
+        <input id="loadLoc" type="file" style="border-radius:0px"></input>
+        <input id="load" type="button" value="Load" style="padding:0px 10px"></input>
+      </form>
     </li>
-    <li>
-      <p>In development</p>
+    <li class="save">
+      <form>
+        <input id="saveName" type="text" placeholder="File Name"></input>
+        <input id="save" type="button" value="Save Annotations" style="padding:0px 10px;margin-left:30px"></input>
+      </form>
     </li>
   </ul>
 </body>

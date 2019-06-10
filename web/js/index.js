@@ -6,9 +6,21 @@ let uiColor = {
 document.addEventListener('DOMContentLoaded', function() {
   createFormListeners();
 
+  // Save listener
   $('#save').on('click', () => {
     saveSettings();
   });
+
+  // Load listener
+  $('#load').on('click', () => {
+    let file = $('#loadLoc').prop('files')[0];
+    if(!file) {
+      alert('Error : No file was selected');
+      return;
+    }
+    loadSettings(file);
+  });
+
 
   $('#addNews').on('submit', () => {
     event.preventDefault();
@@ -39,7 +51,6 @@ document.addEventListener('DOMContentLoaded', function() {
 function createFormListeners() {
   $('#addGraph').on('submit', () => {
     event.preventDefault();
-
     let stockSymbol = $('[name="stockSymbol"]').val();
     chartMap.add(stockSymbol.toLowerCase());
   });
@@ -84,24 +95,44 @@ return;
   setTimeout( () => {
     $('#chart').click();
 
-    $('#date').val('2017-08-25');
-    $('#tag').val('Whole Food Merger');
-    $('#summary').text('Amazon and Whole Food completed merger');
-    $('#website').val('https://www.forbes.com/sites/jeffreydorfman/2017/08/25/amazon-and-whole-foods-merger-to-introduce-cross-platform-selling-and-lower-prices/#43c81d4a12f8');
+    $('#date').val('2015-12-04');
+    $('#tag').val('Test 2');
+    $('#summary').text('something really really really long here');
+    $('#website').val('www.google.com');
     $('#addNews [type="submit"]').click();
   }, 2000);
 }
 
-let content = 'hello word';
 function saveSettings() {
-  let blob = new Blob([content], {type: 'text/plain'});
+  let contents = JSON.stringify(getSavedObject(), null, 2);
+  let blob = new Blob([contents], {type: 'text/plain'});
   let anchor = document.createElement('a');
-  let fileName = $('input[name="fileName"]').val();
+  let fileName = $('input#saveName').val();
 
   anchor.download = (fileName || 'stockSettings') + '.json';
   anchor.href = (window.webkitURL || window.URL).createObjectURL(blob);
   anchor.dataset.downloadurl = ['text/plain', anchor.download, anchor.href].join(':');
   anchor.click();
+}
+
+function loadSettings(file) {
+  let fileReader = new FileReader();
+
+  fileReader.onerror = function() {
+    alert(`Error : ${this.error}`);
+  }
+
+  fileReader.onload = function() {
+    try {
+      let file = JSON.parse(this.result);
+      if(file.app != 'stockPage') throw('Wrong file.  Must load a stockPage configation.');
+      loadAnnotations(file);
+    } catch(error) {
+      alert(`Error : ${error}`);
+    }
+  }
+
+  fileReader.readAsText(file);
 }
 
 function invalidDate(date) {
@@ -110,4 +141,25 @@ function invalidDate(date) {
   let [year, month, day] = date.split('-');
 
   if(isNaN(year) || isNaN(month) || isNaN(day)) return false;
+}
+
+function getSavedObject() {
+  let savedObject = {
+    app : 'stockPage',
+    version : 1,
+    revision : 0,
+    annotations : getAllAnnotations(),
+  }
+
+  return savedObject;
+}
+
+async function loadAnnotations(file) {
+  let version = `${file.version}.${file.revision}`;
+
+  for(let stockSymbol in file.annotations) {
+    if(chartMap.map[stockSymbol] == undefined) await chartMap.add(stockSymbol);
+    for(let annotation of file.annotations[stockSymbol])
+      chartMap.map[stockSymbol].addAnnotation(...annotation);
+  }
 }

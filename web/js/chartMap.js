@@ -1,12 +1,11 @@
 let chartMap = {
   map : {},
   add : function(symbol) {
-    this.notInMap(symbol)
+    return this.notInMap(symbol)
       .then((symbol) => { return this.existInDatabase(symbol) })
       .then((symbol) => { return this.getDataset(symbol) })
       .then((obj) => { return this.createChart(obj.symbol, obj.dataset) })
       .catch((error) => { console.log(error); });
-
   },
   notInMap : function(symbol) {
     return new Promise((resolve, reject) => {
@@ -90,3 +89,13 @@ function iexDatasetFilter(dataset) {
   return plotlySet;
 }
 
+function getAllAnnotations() {
+  let annotations = {};
+
+  for(let stockSymbol in chartMap.map) {
+    let annotation = chartMap.map[stockSymbol].getAnnotations();
+    annotations[stockSymbol] = annotation;
+  }
+
+  return annotations;
+}

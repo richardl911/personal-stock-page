@@ -258,6 +258,16 @@ chart.prototype.getClosetYFromX = function(date) {
   return this.data[0].y[deltaIndex];
 }
 
+chart.prototype.getAnnotations = function() {
+  let array = [];
+  for(let key in this.annotatedHash) {
+    array.push(this.annotatedHash[key]);
+  }
+
+  return array;
+}
+
+
 function getSelectedChart() {
   return selectedChart;
 }
@@ -276,6 +286,4 @@ function createAnnotatedElement(x, y, shortTag) {
     captureevents : true,
   }
 }
-
-
 
