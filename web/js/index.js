@@ -84,10 +84,10 @@ return;
   setTimeout( () => {
     $('#chart').click();
 
-    $('#date').val('2015-12-04');
-    $('#tag').val('Test 2');
-    $('#summary').text('something really really really long here');
-    $('#website').val('www.google.com');
+    $('#date').val('2017-08-25');
+    $('#tag').val('Whole Food Merger');
+    $('#summary').text('Amazon and Whole Food completed merger');
+    $('#website').val('https://www.forbes.com/sites/jeffreydorfman/2017/08/25/amazon-and-whole-foods-merger-to-introduce-cross-platform-selling-and-lower-prices/#43c81d4a12f8');
     $('#addNews [type="submit"]').click();
   }, 2000);
 }
