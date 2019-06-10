@@ -16,7 +16,6 @@ You are in control.  You can pick the stock charts you want and add whatever new
     * Designed/tested with Google Chrome
 
 ## Missing Features
-- Ability to save/load annotated news (coming soon)
 - Alert feature for invalid stock symbol
     + Currently, invalid stock symbol error is displayed in console window
 - Help menu
@@ -41,6 +40,18 @@ The two functionality submenu as of now are the following :
 - Used to add your news to stock chart.<br>
 - <strong> Click on chart first to get control of this submenu </strong>
 ![alt text](https://raw.githubusercontent.com/richardl911/personal-stock-page/master/images/addNews.PNG)
+
+#### Save
+- Type in a desired file name to save all annotations and charts
+- File will be most likely be saved to your download directory
+![alt text](https://raw.githubusercontent.com/richardl911/personal-stock-page/master/images/save.PNG)
+
+#### Load
+- Use this submenu to load previous annotations/charts into the GUI
+- Loading will not erase current charts or annotations that has different dates
+    + ie. An annotation with date 2019/06/10 already in the chart will get overriden with one loaded from 2019/06/10.  However, one with different dates (2014/10/21), will not be overriden
+
+![alt test](https://raw.githubusercontent.com/richardl911/personal-stock-page/master/images/load.PNG)
 
 ## Chart's Ability
 - Resizable
