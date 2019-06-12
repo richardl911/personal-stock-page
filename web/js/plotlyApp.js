@@ -102,6 +102,11 @@ chart.prototype.createGraph = function() {
                                                                                       // 20 for top bar; 10+12 for news menu (12 font [5+5] padding)
   });
 
+  this.chartWindow.on('resizestart', function(event, ui) {
+    let displayStatus = $(ui.element).find('.newsBar').css('display');
+    if(displayStatus == 'block') $(ui.element).find('.collapsible').click();
+  });
+
   // Get news form access when chart is clicked
   this.chartWindow.on('click', () => {
     $('#blackOut').css('display', 'none');
