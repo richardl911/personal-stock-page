@@ -1,11 +1,12 @@
 let chartMap = {
+  apiKey : 'pk_19b96c0c6c344188b05b6f6566ae4782',       // fixme
   map : {},
   add : function(symbol) {
     return this.notInMap(symbol)
       .then((symbol) => { return this.existInDatabase(symbol) })
       .then((symbol) => { return this.getDataset(symbol) })
       .then((obj) => { return this.createChart(obj.symbol, obj.dataset) })
-      .catch((error) => { console.log(error); });
+      .catch((error) => { alert(error); console.log(error); });
   },
   notInMap : function(symbol) {
     return new Promise((resolve, reject) => {
@@ -20,11 +21,12 @@ let chartMap = {
       });
   },
   existInDatabase : function(symbol) {
-    let url = `https://api.iextrading.com/1.0/stock/${symbol}/chart/1d`;
+    let url = `https://cloud.iexapis.com/stable/stock/${symbol}/delayed-quote?token=${this.apiKey}`;
     return new Promise((resolve, reject) => {
         let xhr = new XMLHttpRequest();
-        
+
         xhr.onload = function(){
+
           if(this.status != 200) reject(`Error ${this.status} : ${this.statusText}`);
           else resolve(symbol);
         }
@@ -37,12 +39,11 @@ let chartMap = {
         xhr.send();
 
       }).catch((error) => {
-        throw(error);
+        throw(`Error : -${symbol.toUpperCase()}- is an invalid stock symbol`);
       }); 
   },
   getDataset : function(symbol) {
-    let url = `https://api.iextrading.com/1.0/stock/${symbol}/chart/5y`;
-
+    let url = `https://cloud.iexapis.com/stable/stock/${symbol}/chart/5y?token=${this.apiKey}`;
     return new Promise((resolve, reject) => {
       let xhr = new XMLHttpRequest();
 
