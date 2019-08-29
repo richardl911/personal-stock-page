@@ -21,7 +21,7 @@ let chartMap = {
       });
   },
   existInDatabase : function(symbol) {
-    let url = `https://cloud.iexapis.com/stable/stock/${symbol}/delayed-quote?token=${this.apiKey}`;
+    let url = `https://cloud.iexapis.com/stable/tops?token=${this.apiKey}&symbols=${symbol}`;
     return new Promise((resolve, reject) => {
         let xhr = new XMLHttpRequest();
 
